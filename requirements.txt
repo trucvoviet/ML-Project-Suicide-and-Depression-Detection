@@ -1,0 +1,8 @@
+streamlit
+scikit-learn
+pandas
+numpy
+nltk
+beautifulsoup4
+contractions
+joblib
