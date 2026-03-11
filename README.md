@@ -13,7 +13,7 @@ This tool is intended **for educational and research purposes only**. It is **no
 
 Below is the deployed application interface.
 
-![SCSH App interface](imgs\sdui.png)
+![SCSH App interface](imgs/sdui.png)
 
 ---
 
