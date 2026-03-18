@@ -248,11 +248,3 @@ Potential enhancements include:
 * NLTK Documentation
 * Scikit-learn Documentation
 * Streamlit Documentation
-
----
-
-## Author
-
-**Vo Thi Thanh Truc**
-
-This project is part of a **Natural Language Processing portfolio project** focused on **mental health text analysis and suicide/self-harm detection**.
