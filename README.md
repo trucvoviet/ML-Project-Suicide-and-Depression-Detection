@@ -90,25 +90,98 @@ This converts the text dataset into a **15000-dimensional feature representation
 
 ## Machine Learning Model
 
-The project uses a **Decision Tree Classifier**.
+### Model Training and Evaluation
 
-Model configuration:
+To determine the most effective approach for detecting **suicide and self-harm intention**, multiple machine learning models were trained and evaluated using the same TF-IDF feature representation.
+
+The following models were compared:
+
+* Logistic Regression
+* Linear Support Vector Classifier (LinearSVC)
+* Stochastic Gradient Descent (SGD)
+* Multinomial Naive Bayes
+* XGBoost
+
+Each model was evaluated using:
+
+* **F1 Score** (primary metric)
+* **Precision**
+* **Recall**
+* **Training Time**
+* **Prediction Time**
+
+---
+
+### Model Performance Comparison
+
+| Model               | F1 Score   | Precision | Recall | Train Time (s) | Prediction Time (s) |
+| ------------------- | ---------- | --------- | ------ | -------------- | ------------------- |
+| **LinearSVC**       | **0.9274** | 0.9276    | 0.9274 | 3.19           | 0.006               |
+| Logistic Regression | 0.9268     | 0.9270    | 0.9269 | 2.55           | 0.009               |
+| SGD                 | 0.9209     | 0.9213    | 0.9209 | 0.66           | 0.006               |
+| XGBoost             | 0.9024     | 0.9036    | 0.9025 | 121.74         | 0.346               |
+| MultinomialNB       | 0.8475     | 0.8479    | 0.8475 | 0.11           | 0.014               |
+
+---
+
+### Model Selection
+
+* **LinearSVC achieved the highest F1 Score**, indicating the best overall balance between precision and recall.
+* It also demonstrated **very fast prediction time**, making it highly efficient.
+
+However:
+
+**Logistic Regression was selected for deployment** in the Streamlit application.
+
+---
+
+### Why Logistic Regression Was Chosen
+
+Although LinearSVC slightly outperformed other models, it **does not support probability outputs (`predict_proba`)**, which are essential for:
+
+* Displaying **confidence scores (%)** to users
+* Improving **interpretability in sensitive applications**
+* Supporting **better user understanding and trust**
+
+Logistic Regression provides:
+
+* Probability predictions (`predict_proba`)
+* Comparable performance to LinearSVC
+* Efficient training and inference
+* Better suitability for real-world deployment
+
+---
+
+### Final Model Performance (Logistic Regression)
 
 ```
-DecisionTreeClassifier(
-    criterion='entropy',
-    random_state=42
-)
+              precision    recall  f1-score   support
+
+           0       0.92      0.94      0.93     23287
+           1       0.93      0.92      0.93     23128
+
+    accuracy                           0.93     46415
+   macro avg       0.93      0.93      0.93     46415
+weighted avg       0.93      0.93      0.93     46415
 ```
 
-Dataset split:
+This shows **strong and balanced performance across both classes**, making it reliable for deployment.
+
+---
+
+### Example Prediction
+
+Input:
 
 ```
-Training data: 80%
-Testing data: 20%
+"I can't take this anymore. I feel like ending my life"
 ```
 
-Model performance is evaluated using **accuracy score**.
+Output:
+
+```
+Potential suicide/self-harm intention
+```
 
 ---
 
